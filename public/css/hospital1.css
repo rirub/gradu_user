@@ -1,0 +1,36 @@
+*{
+    font-family: '나눔바른고딕';
+}
+#info{
+    font-size: 20px;
+    color: gray;
+    margin-top: 1px;
+    text-align: center;
+}
+.container1{
+    min-height: calc(100vh - 250px);
+}
+#mark{
+    margin-left: 0px;
+}
+strong{
+    font-size: 30px;
+}
+#title{
+    font-size: 25px;
+}
+#id1{
+    border-radius: 4px;
+    width:95px;
+    height:35px;
+    margin-left: 700px;
+}
+#id2{
+    border-radius: 4px;
+    width:95px;
+    height:35px;
+}
+#squ{
+    font-size: 1px;
+    margin-right: 8px;
+}
