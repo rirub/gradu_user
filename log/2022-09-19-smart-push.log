@@ -65,3 +65,10 @@
 {"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 15:35:02"}
 {"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 15:40:43"}
 {"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 15:41:21"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 17:24:51"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 18:05:58"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 18:07:59"}
+{"level":"error","message":"createJwt Query error\n: {}","timestamp":"2022-09-19 18:08:40"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 18:10:13"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-09-19 18:10:57"}
+{"level":"error","message":"createJwt Query error\n: {}","timestamp":"2022-09-19 18:12:09"}

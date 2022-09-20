@@ -9,7 +9,7 @@ module.exports = function(app){
     //강의코드 : app.post("/login",index.createJwt)
    
     //로그인
-    app.post("/login",index.process.login);
+    app.post("/login",index.process.createJwt);
     //회원가입 
     app.post("/signup",index.process.signup);
 

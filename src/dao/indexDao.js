@@ -18,11 +18,12 @@ exports.selectUsers = async function (connection, params) {
   return rows;
 };
 
-// exports.searchUsers = async function (connection, userID,password) {
-//   const Query = `select * from user WHERE id = ? values (userID)`;
-//   const Params = [userID,password];
+exports.isValidUsers = async function (connection, userID,password) {
+  const Query = `select userIdx, userName from user WHERE userID = ? and password = ? and status='A'`;
+  
+  const Params = [userID,password];
 
-//   const rows = await connection.query(Query, Params);
+  const rows = await connection.query(Query, Params);
 
-//   return rows;
-// };
+  return rows;
+};
