@@ -14,7 +14,11 @@ const output = {
 
     login : async function(req,res){
         return res.render('login2.ejs');
-    }
+    },
+
+     main : async function(req,res){
+        return res.render('index.ejs');
+    },
 }
 // ---------------
 const process = {
@@ -41,7 +45,7 @@ const process = {
           });
         }
         //login pw 확인 알고리즘 추가하기
-        const {userIdx, userName}=rows[0];
+        const {userIdx, userName} = rows[0];
 
         const token = jwt.sign(
           {userIdx: userIdx,
@@ -82,15 +86,19 @@ const process = {
             userName, 
             password
             );
-
-          return res.send(
-            {
-            result: rows,
+            //console.log(rows);
+            const userIdx=rows.insertId;
+            const token = jwt.sign(
+              {userIdx: userIdx, userName: userName},
+              secret.jwtsecret
+            );
+            
+          return res.send({
+            result: { jwt : token},
             isSuccess: true,
-            code: 200, // 요청 실패시 400번대 코드
-            message: "user 생성 성공",
-          }
-          );
+            code: 200,
+            message: "회원가입 성공",
+          });
         } catch (err) {
           logger.error(`insertUsers Query error\n: ${JSON.stringify(err)}`);
         } finally {
@@ -100,55 +108,13 @@ const process = {
         logger.error(`insertUsers DB Connection error\n: ${JSON.stringify(err)}`);
         return false;
       }
-
-
-      //console.log(userID, userName, password);
-      //1. 유저 데이터 검증
-      const userIDRegExp = /^[a-z]+[a-z0-9]{5,19}$/g;
-      const passwordRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
-      const userNameRegExp = /^[가-힣|a-z|A-Z|0-9|]{2,10}$/;
-      console.log(userIDRegExp.test(userID));
-      if(!userIDRegExp.test(userID)){
-        return res.send({
-          isSuccess: false,
-          code: 400,
-          message: "아이디 정규식 영문자로 시작하는 영문자 또는 숫자 6-20",
-        });
-      }
-      if(!passwordRegExp.test(password)){
-        return res.send({
-          isSuccess: false,
-          code: 400,
-          message: "비밀번호 정규식 8-16문자, 숫자 조합",
-        });
-      }
-      if(!userNameRegExp.test(userName)){
-        return res.send({
-          isSuccess: false,
-          code: 400,
-          message: "이름 정규식 2-10 한글,숫자 또는 영문",
-        });
-      }
       
       try {
         const connection = await pool.getConnection(async (conn)=> conn);
         try {
-         
-        
         const [rows] = await indexDao.insertUsers(connection, userID, userName, password);
-        
-        const userIdx = rows.insertID;
 
-        const token = jwt.sign(
-          {userIdx: userIdx, userName: userName},
-          secret.jwtsecret
-        );
-      return res.send({
-        result: { jwt: token},
-        isSuccess: true,
-        code: 200,
-        message: "회원가입 성공",
-      });
+  
       } catch(err){
         logger.error(`createUsers Query error\n: ${JSON.stringify(err)}`)
         return false;
@@ -171,7 +137,7 @@ const readUsers = async function(req,res){
         const connection = await pool.getConnection(async (conn) => conn);
         try {
           const [rows] = await indexDao.selectUsers(connection);
-    
+        
           return res.send(
             {
             result: rows,

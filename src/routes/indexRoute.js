@@ -6,6 +6,7 @@ module.exports = function(app){
     //app.HTTP메소드(uri, 컨트롤러 콜백함수)
     app.get("/signup", index.output.signup);
     app.get("/login",index.output.login);
+    app.get("/main", index.output.main);
     //강의코드 : app.post("/login",index.createJwt)
    
     //로그인

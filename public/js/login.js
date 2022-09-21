@@ -31,8 +31,11 @@ function login(){
            if(data.code!=200){
                return alert("아이디 비밀번호를 다시 입력하세요");
            }
-            else{
-                //메인페이지로 이동
-                return location.replace("/index.ejs");
-        }});
+           const jwt = data.result.jwt;
+           localStorage.setItem("x-access-token",jwt);
+           alert(data.message);
+           return location.replace("/main");
+        });
+
+       
 }

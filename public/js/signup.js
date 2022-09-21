@@ -72,8 +72,10 @@ function signup(){
             return alert("요청에문제가생겼습니다.");
         }
     const jwt = data.result.jwt;
-    localStorage.setItem("x-access-token",jwt);
+    console.log(jwt);
+    localStorage.setItem("x-access-token", jwt);
     alert(data.message);
+    return location.replace("/login");
   });
 }
 
