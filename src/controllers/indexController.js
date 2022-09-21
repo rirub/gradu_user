@@ -19,7 +19,6 @@ const output = {
 // ---------------
 const process = {
     createJwt : async function(req,res){
-      console.log(req.body);
       const {userID, password} = req.body;
       if(!userID || !password){
         return res.send({
@@ -32,6 +31,7 @@ const process = {
       const connection = await pool.getConnection(async (conn)=>conn);
       try{
         const [rows]=await indexDao.isValidUsers(connection, userID, password);
+        console.log(rows);
         //DB 회원 검증
         if(rows.length <1){
           return res.send({
@@ -47,7 +47,7 @@ const process = {
           {userIdx: userIdx,
           userName: userName},
           secret.jwtsecret
-        );  
+          );  
         return res.send({
           result: {jwt: token},
           isSuccess: true,
@@ -164,7 +164,6 @@ const process = {
 }
 
 
-
 const readUsers = async function(req,res){
     // const {userID} = req.query;
     // console.log(userID);
@@ -192,6 +191,19 @@ const readUsers = async function(req,res){
       }
 };
 
+const readJwt = async function(req,res){
+  const { userIdx, userName } = req.verifiedToken;
+  return res.send({
+    result: {userIdx: userIdx, userName:userName},
+    code: 200,
+    message: "유효한 토큰입니다.",
+  });
+
+}
+
+
+
+
 module.exports = {
-    output, process,readUsers
+    output, process,readUsers, readJwt
 }

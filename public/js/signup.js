@@ -11,7 +11,6 @@ signupBtn.addEventListener("click",signup);
 var psword = 0;
 
 function check(){
-    console.log("개씨발");
     var p1 = password.value;
     var p2 = password2.value;
     if (p1.length < 4) {
@@ -67,6 +66,14 @@ function signup(){
         "Content-Type": "application/json"
     },
     body : JSON.stringify(req),
-   });
+   }).then((response) => response.json())
+    .then((data) => {
+        if(data.code!=200){
+            return alert("요청에문제가생겼습니다.");
+        }
+    const jwt = data.result.jwt;
+    localStorage.setItem("x-access-token",jwt);
+    alert(data.message);
+  });
 }
 

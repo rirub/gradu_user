@@ -12,6 +12,9 @@ module.exports = function(app){
     app.post("/login",index.process.createJwt);
     //회원가입 
     app.post("/signup",index.process.signup);
+    
+    //로그인 유지, 토큰 검증
+    app.get("/jwt", jwtMiddleware, index.readJwt);
 
     //유저조회
     app.get("/users", index.readUsers);

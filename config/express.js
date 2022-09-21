@@ -16,7 +16,7 @@ module.exports= function() {
     //웹 브라우저 ㅓcors 설정 관리
    
     app.use(express.static('public')); // static 파일 사용
-
+    app.use(express.static('views'));
     /* 직접 구현해야 하는 모듈 */
     require("../src/routes/indexRoute")(app);
 

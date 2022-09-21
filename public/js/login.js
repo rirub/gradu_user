@@ -7,12 +7,11 @@ loginBtn.addEventListener("click",login);
 
 function login(){
 
-    if(!id || !password){
+    if(id.value.length<1 || password.value.length<1){
         return alert("회원 정보를 입력해주세요");
     }
     
     // 로그인 api 요청
-    console.log(id.value, password.value);
 
     const req = {
         userID : userID.value,
@@ -26,12 +25,14 @@ function login(){
             "Content-Type": "application/json"
         },
         body : JSON.stringify(req),
-       });
-
-     //요청 성공 여부 code 값으로 확인
-
-    //const isValidLogIn = 
- 
-
-
+       })
+       .then((response) => response.json())
+       .then((data) => {
+           if(data.code!=200){
+               return alert("아이디 비밀번호를 다시 입력하세요");
+           }
+            else{
+                //메인페이지로 이동
+                return location.replace("/index.ejs");
+        }});
 }
