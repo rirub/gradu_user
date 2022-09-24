@@ -9,16 +9,54 @@ const indexDao = require("../dao/indexDao");
 const output = {
 
     signup : async function(req,res){
-        return res.render('signup.ejs');
+        return res.render('main/signup.ejs');
     },
 
     login : async function(req,res){
-        return res.render('login2.ejs');
+        return res.render('main/login2.ejs');
     },
 
      main : async function(req,res){
-        return res.render('index.ejs');
+        return res.render('main/select2.ejs');
     },
+
+}
+
+const hospital = {
+  hospital_eye : async function(req,res){
+    return res.render('hospital/hospital_eye.ejs');
+ },
+
+  hospital_hb : async function(req,res){
+    return res.render('hospital/hospital_hb.ejs');
+  },
+
+  hospital_jh : async function(req,res){
+    return res.render('hospital/hospital_jh.ejs');
+  },
+
+  hospital_n : async function(req,res){
+    return res.render('hospital/hospital_n.ejs');
+  },
+
+  hospital_no : async function(req,res){
+    return res.render('hospital/hospital_no.ejs');
+  },
+  hospital_sk : async function(req,res){
+    return res.render('hospital/hospital_sk.ejs');
+  },
+
+  hospital_skin : async function(req,res){
+    return res.render('hospital/hospital_skin.ejs');
+  },
+
+  hospital_t : async function(req,res){
+    return res.render('hospital/hospital_t.ejs');
+  },
+}
+
+const pharmacy = async function(req,res){
+  return res.render('pharmacy/pharmacy.ejs');
 }
 // ---------------
 const process = {
@@ -171,5 +209,5 @@ const readJwt = async function(req,res){
 
 
 module.exports = {
-    output, process,readUsers, readJwt
+    output, process, hospital, readUsers, readJwt, pharmacy
 }
