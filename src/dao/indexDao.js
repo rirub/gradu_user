@@ -27,3 +27,13 @@ exports.isValidUsers = async function (connection, userID,password) {
 
   return rows;
 };
+
+
+// exports.insertHospital = async function (connection, userID, userName, password) {
+//   const Query = `insert into user(userID,userName,password) values(?,?,?);`;
+//   const Params = [userID,userName,password];
+
+//   const rows = await connection.query(Query, Params);
+
+//   return rows;
+// };

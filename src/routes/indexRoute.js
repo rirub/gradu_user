@@ -9,7 +9,7 @@ module.exports = function(app){
     app.get("/main",index.output.main);
 
     //병원 별 api
-    app.get("/hospital_eye", index.hospital.hospital_eye);
+    //app.get("/hospital_eye", index.hospital.hospital_eye);
     app.get("/hospital_hb", index.hospital.hospital_hb);
     app.get("/hospital_jh", index.hospital.hospital_jh);
     app.get("/hospital_n", index.hospital.hospital_n);

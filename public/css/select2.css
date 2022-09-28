@@ -56,18 +56,40 @@ h2
 #row2{
     margin-left: 35px;
 }
-#btn{
+#skBtn,
+#eyeBtn,
+#noBtn,
+#skinBtn,
+#hbBtn,
+#tBtn,
+#nBtn,
+#jhBtn{
     width: 100px;
     height: 100px;
     border-radius: 50%;
     background-color: #777;
     
 }
-#btn div{
+#skBtn div,
+#eyeBtn div,
+#noBtn div,
+#skinBtn div,
+#hbBtn div,
+#tBtn div,
+#nBtn div,
+#jhBtn div{
     margin-top: 30px;
     color: #777;
 }
-#btn:hover{
+
+#skBtn :hover,
+#eyeBtn :hover,
+#noBtn :hover,
+#skinBtn :hover,
+#hbBtn :hover,
+#tBtn :hover,
+#nBtn :hover,
+#jhBtn :hover{
     background-color: black;
     
 }
