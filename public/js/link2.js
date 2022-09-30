@@ -8,40 +8,48 @@ const noBtn = document.querySelector("#noBtn");
 const skinBtn = document.querySelector("#skinBtn");
 const tBtn = document.querySelector("#tBtn");
 
-
+//const phar = document.querySelector("#")
 
 
 eyeBtn.addEventListener("click", function(){
-    return location.replace("/hospital_eye");
+    window.localStorage.setItem("keyword",'안과');
+    return location.replace("/hospital");
 });
 
 hbBtn.addEventListener("click", function(){
-    return location.replace("/hospital_hb");
+    window.localStorage.setItem("keyword",'흉부외과');
+    return location.replace("/hospital");
 });
 
 skBtn.addEventListener("click", function(){
-    return location.replace("/hospital_sk");
+    window.localStorage.setItem("keyword",'신경외과');
+    return location.replace("/hospital");
 });
 
 
 jhBtn.addEventListener("click", function(){
-    return location.replace("/hospital_jh");
+    window.localStorage.setItem("keyword",'정형외과');
+    return location.replace("/hospital");
 });
 
 nBtn.addEventListener("click", function(){
-    return location.replace("/hospital_n");
+    window.localStorage.setItem("keyword",'내과');
+    return location.replace("/hospital");
 });
 
 noBtn.addEventListener("click", function(){
-    return location.replace("/hospital_no");
+    window.localStorage.setItem("keyword",'이비인후과');
+    return location.replace("/hospital");
 });
 
 
 skinBtn.addEventListener("click", function(){
-    return location.replace("/hospital_skin");
+    window.localStorage.setItem("keyword",'피부과');
+    return location.replace("/hospital");
 });
 
 tBtn.addEventListener("click", function(){
-    return location.replace("/hospital_t");
+    window.localStorage.setItem("keyword",'치과');
+    return location.replace("/hospital");
 });
 

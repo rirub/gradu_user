@@ -1,7 +1,6 @@
 *{
     font-family: '나눔바른고딕';
 }
-
 #info{
     font-size: 20px;
     color: gray;
@@ -34,4 +33,11 @@ strong{
 #squ{
     font-size: 1px;
     margin-right: 8px;
+}
+.hidden{
+    display: none;
+}
+.sign-container{
+    margin-left: 700px;
+
 }
