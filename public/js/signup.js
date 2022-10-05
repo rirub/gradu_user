@@ -8,6 +8,16 @@ const signupBtn = document.querySelector("#signupBtn");
 console.log(password.value);
 signupBtn.addEventListener("click",signup);
 
+
+// 로그아웃 버튼 이벤트 연결
+const btnSignOut = document.querySelector("#sign-out");
+btnSignOut.addEventListener("click",signOut);
+// 로그아웃
+function signOut(event){
+    localStorage.removeItem("x-access-token");
+    location.replace("/login");
+}
+
 var psword = 0;
 
 function check(){
@@ -30,6 +40,10 @@ function check(){
     }
     
 }
+
+function refreshPage(){
+    window.location.reload();
+} 
 
 function is_checked(){
     var checkbox = document.getElementById('flexCheckDefault');
@@ -78,4 +92,3 @@ function signup(){
     return location.replace("/login");
   });
 }
-

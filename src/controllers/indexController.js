@@ -17,43 +17,12 @@ const output = {
     },
 
      main : async function(req,res){
+        const {userID} = req.params;
         return res.render('main/select2.ejs');
     },
 
 }
 
-//const hospital = {
-//   hospital_eye : async function(req,res){
-//     return res.render('hospital/hospital_eye.ejs');
-//  },
-
-//   hospital_hb : async function(req,res){
-//     return res.render('hospital/hospital_hb.ejs');
-//   },
-
-//   hospital_jh : async function(req,res){
-//     return res.render('hospital/hospital_jh.ejs');
-//   },
-
-//   hospital_n : async function(req,res){
-//     return res.render('hospital/hospital_n.ejs');
-//   },
-
-//   hospital_no : async function(req,res){
-//     return res.render('hospital/hospital_no.ejs');
-//   },
-//   hospital_sk : async function(req,res){
-//     return res.render('hospital/hospital_sk.ejs');
-//   },
-
-//   hospital_skin : async function(req,res){
-//     return res.render('hospital/hospital_skin.ejs');
-//   },
-
-//   hospital_t : async function(req,res){
-//     return res.render('hospital/hospital_t.ejs');
-//   },
-//}
 
 const hospital = async function(req,res){
   return res.render('hospital/hospital.ejs');
@@ -62,6 +31,12 @@ const hospital = async function(req,res){
 const pharmacy = async function(req,res){
   return res.render('pharmacy/pharmacy.ejs');
 }
+
+const reservation = async function(req,res){
+  return res.render('reservation/reservation.ejs');
+}
+
+
 // ---------------
 const process = {
     createJwt : async function(req,res){
@@ -169,7 +144,13 @@ const process = {
     }
     
      },
-}
+    //  reservation: async function(req,res){
+    //   console.log("ㅎㅎ");
+    // }
+  
+    };
+     
+
 
 
 const readUsers = async function(req,res){
@@ -210,5 +191,5 @@ const readJwt = async function(req,res){
 }
 
 module.exports = {
-    output, process, hospital, readUsers, readJwt, pharmacy
+    output, process, hospital, readUsers, readJwt, pharmacy, reservation,
 }
