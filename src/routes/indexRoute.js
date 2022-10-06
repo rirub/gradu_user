@@ -10,7 +10,9 @@ module.exports = function(app){
     app.get("/pharmacy", index.pharmacy);
     app.get("/hospital", index.hospital);
     app.get("/reservation", index.reservation);
-
+     //로그인 유지, 토큰 검증
+    app.get("/jwt", jwtMiddleware, index.readJwt);
+    //app.get("/jwt",function(){"Hi"});
 
     //로그인
     app.post("/login",index.process.createJwt);
@@ -20,9 +22,7 @@ module.exports = function(app){
     //예약
     //app.post("/reservation",index.process.reservation);
 
-    //로그인 유지, 토큰 검증
-    app.get("/jwt", jwtMiddleware, index.readJwt);
-
+   
     //유저조회
     app.get("/users", index.readUsers);
    };
