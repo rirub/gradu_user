@@ -18,7 +18,7 @@ module.exports = function(app){
     app.post("/login",index.process.createJwt);
     //회원가입 
     app.post("/signup",index.process.signup);
-    
+    app.post("/gethosIdx",index.process.getHosIdx);
     //예약
     //app.post("/reservation",index.process.reservation);
 

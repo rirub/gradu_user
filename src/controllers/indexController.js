@@ -147,6 +147,58 @@ const process = {
     //  reservation: async function(req,res){
     //   console.log("ㅎㅎ");
     // }
+
+    getHosIdx : async function(req,res){
+      const {hosName} = req.body;
+      if(!hosName){
+        return res.send({
+          isSuccess: false,
+          code: 400,
+          message: "회원정보를 입력해주세요",
+        });
+      }
+    try{
+      const connection = await pool.getConnection(async (conn)=>conn);
+      try{
+        const [rows]=await indexDao.isValidHos(connection, hosName);
+        console.log(rows);
+        //DB 회원 검증
+        if(rows.length <1){
+          return res.send({
+            isSuccess: false,
+            code: 410,
+            message: "해당 병원에 대한 정보가 존재하지 않습니다."
+          });
+        }
+        //login pw 확인 알고리즘 추가하기
+        const hosIdx = rows[0];
+
+        return res.send({
+          isSuccess: true,
+          code: 200, // 요청 실패시 400번대 코드
+          message: "요청 성공",
+          result : hosIdx ,
+        });
+      } 
+    catch(err){
+      logger.error(`createhosDB Query error\n: ${JSON.stringify(err)}`)
+      return false;
+    }finally {
+      connection.release();
+    }
+  } catch(err){
+    logger.error(`createhosDB Connection error\n: ${JSON.stringify(err)}`);
+    return false;  
+  }
+  
+   }
+
+
+
+
+
+
+
   
     };
      

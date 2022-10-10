@@ -2,7 +2,7 @@
 const jwt = localStorage.getItem("x-access-token");
 setHeader(jwt);
 
-console.log("headr.js"+jwt);
+
 const btnSignout=document.querySelector("#sign-out");
 
 btnSignout.addEventListener("click",signOut);
@@ -27,12 +27,16 @@ async function setHeader(jwt){
     //유효한 토큰일 경우
 
     const userIdx = data.result.userIdx;
+    window.localStorage.setItem('userIdx', userIdx);
     const userName = data.result.userName;
-    //console.log(userIdx,userName);
     const divUnsigned = document.querySelector(".unsigned");
     const divSigned = document.querySelector(".signed");
     const spanNickname = document.querySelector(".nickname");
 
+//    const userData = {
+//         userIdx : userIdx,
+//         userName: userName
+//    }
 
     return true;
 
@@ -46,3 +50,5 @@ function signOut(){
      localStorage.removeItem("x-access-token");
      location.reload(); //새로고침
     }
+
+    // export {userData};

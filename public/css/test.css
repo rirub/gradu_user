@@ -97,6 +97,19 @@
     color: whitesmoke;
 
 }
+#date{
+    background-color: rgb(33,37,41);
+    color: whitesmoke;
+
+}
+#submit{
+    background-color: rgb(33,37,41);
+    color: whitesmoke;
+}
+#submit:hover{
+    color: rgb(33,37,41);
+    background-color: whitesmoke;
+}
 #but{
     margin-right: 10px;
     padding: 3px;
@@ -108,4 +121,12 @@
     width: 100%;
     height: 10%;
 }
-
+.nickname{
+    background-color: rgb(33,37,41);
+    border: 0px;
+    color: white;
+}
+.nickname:hover{
+    font-size: 17px;
+    color: gray;
+}
