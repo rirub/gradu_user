@@ -2,7 +2,7 @@
 
 // 마커를 담을 배열입니다
 var markers = [];   
-
+var hosIdx;
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.56687, 126.97804), // 지도의 중심좌표
@@ -150,8 +150,9 @@ function displayPlaces(places,lat,lon) {
                 var name = event.currentTarget.querySelector('.name');
                 var address = event.currentTarget.querySelector('#address');
                 console.log(name.innerHTML);
-                if(!reservation(name.innerHTML)){
-                    return false;
+                if(!checkHos(name.innerHTML)){
+                    //팝업창안뜨게...
+            
                 }
                 console.log(address.innerHTML);
                 var Hname = name.innerHTML;
@@ -210,13 +211,48 @@ function displayPlaces(places,lat,lon) {
 }
 
 $(document).on('click','#reservation',function(){
-    alert('예약 완료');
+    const userIdx = window.localStorage.getItem('userIdx');
     var name = window.localStorage.getItem('name');
     var address = window.localStorage.getItem('address');
     var username = document.getElementById('name');
     var usernum = document.getElementById('phone');
+    var userbirth = document.getElementById('birth');
     var date = localStorage.getItem('date');
     var time = localStorage.getItem('time');
+ 
+    const req2 = { 
+        hosIdx : hosIdx, 
+        Date: date,
+        Time : time,
+        userIdx : userIdx,
+        userName : username.value,
+        userNum : usernum.value,
+        userBirth : userbirth.value
+    };
+        console.log(req2);
+    
+   fetch("/reservation",{
+    method : "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body : JSON.stringify(req2),
+   })
+   .then((response) => response.json())
+   .then((data) => {
+       if(data.code!=200){
+           alert("해당 시간에 예약이 불가능합니다. 다른 시간을 선택해주세요");
+           return false;
+        }
+        else{
+            alert('예약 완료');
+            return true;
+        }
+    //    const resIdx = data.result.resIdx;
+    //    console.log(resIdx);
+       
+    });
+
 
     let newContent = `
                 <h3 style="font-weight: bold; font-size:27px; margin-bottom: 5px; text-align:center; color:black"> 예약 완료 </h3>
@@ -229,7 +265,7 @@ $(document).on('click','#reservation',function(){
                 <div style=" font-size:15px; margin-bottom: 5px; text-align:center; color:black">
                 <p> 이름 : `+ username.value +
                 `<p> 번호 : `+ usernum.value +
-                `<p> 날짜 : `+ date + 
+              checkHos  `<p> 날짜 : `+ date + 
                 `<p> 시간 : `+ time +
                 `</div>
                 <div> <button id="end" style="background-color:black; color: white; border-radius: 5px; width: 100px; margin-top: 10px; margin-left: 76px"> 확인 </button></div>
@@ -574,14 +610,10 @@ function signOut(event){
 
 //예약 구현 - 여기서부터 령휘꺼에 추가! 
 
-function reservation(hosname){
-    // const userIdx = window.localStorage.getItem('userIdx');
+function checkHos(hosname){
+   
     var hosName = hosname;
-    // var username = document.getElementById('name');
-    // var usernum = document.getElementById('phone');
-    // var date = localStorage.getItem('date');
-    // var time = localStorage.getItem('time');
-    var hosIdx;
+
     const request = {
         hosName : hosName
     }
@@ -603,37 +635,5 @@ function reservation(hosname){
         console.log(hosIdx)
         return true;
     });
-
-
-    // const req = { 
-    //     hosIdx : hosIdx, 
-    //     Date: date,
-    //     Time : time,
-    //     userIdx : userIdx,
-    //     userName : username,
-    //     userNum : usernum,
-    //     userBirth : userBirth.value,
-    //    };
-    //console.log(req);
-    
-    //    fetch("/reservation",{
-    //     method : "POST",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body : JSON.stringify(req),
-    //    })
-    //    .then((response) => response.json())
-    //    .then((data) => {
-    //        if(data.code!=200){
-    //            return alert("아이디 비밀번호를 다시 입력하세요");
-    //        }
-    //        const jwt = data.result.jwt;
-    //        localStorage.setItem("x-access-token",jwt);
-    //        alert(data.message);
-    //        return location.replace("/main");
-    //     });
-
        
 }
-

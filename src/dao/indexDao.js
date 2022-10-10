@@ -40,6 +40,18 @@ exports.isValidHos = async function (connection, hosName) {
 };
 
 
+exports.insertReserv = async function (connection,hosIdx, Date,Time,userIdx,userName, userNum, userBirth) {
+  const Query = `insert into reservation(hosIdx, Date,Time,userIdx,userName, userNum, userBirth) values(?,?,?,?,?,?,?);`;
+  const Params = [hosIdx, Date,Time,userIdx,userName, userNum, userBirth];
+
+  const rows = await connection.query(Query, Params);
+
+  return rows;
+};
+
+
+
+
 
 // exports.insertHospital = async function (connection, userID, userName, password) {
 //   const Query = `insert into user(userID,userName,password) values(?,?,?);`;

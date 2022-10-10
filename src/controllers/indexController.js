@@ -142,11 +142,8 @@ const process = {
       logger.error(`createUsers DB Connection error\n: ${JSON.stringify(err)}`);
       return false;  
     }
-    
      },
-    //  reservation: async function(req,res){
-    //   console.log("ㅎㅎ");
-    // }
+  
 
     getHosIdx : async function(req,res){
       const {hosName} = req.body;
@@ -171,7 +168,7 @@ const process = {
           });
         }
         //login pw 확인 알고리즘 추가하기
-        const hosIdx = rows[0];
+        const {hosIdx} = rows[0];
 
         return res.send({
           isSuccess: true,
@@ -191,18 +188,47 @@ const process = {
     return false;  
   }
   
-   }
+   },
 
+   reservation : async function(req,res){
+    const {hosIdx, Date,Time,userIdx,userName, userNum, userBirth} = req.body;
 
-
-
-
-
-
-  
-    };
+    if(!hosIdx || !Date || !Time ||! userIdx ||!userName || !userNum || !userBirth){
+      return res.send({
+        isSuccess: false,
+        code: 400,
+        message: "회원정보를 입력해주세요",
+      });
+    }
+    try {
+      const connection = await pool.getConnection(async (conn) => conn);
+      try {
+        const [rows] = await indexDao.insertReserv( connection, hosIdx, Date,Time,userIdx,userName, userNum, userBirth);
+        //console.log(rows);
+        return res.send({
+          result: {rows},
+          isSuccess: true,
+          code: 200,
+          message: "회원가입 성공",
+        });
+      } catch (err) {
+        logger.error(`insertReserv Query error\n: ${JSON.stringify(err)}`);
+        return res.send({    
+          code: 400         
+        });
      
+      } finally {
+        connection.release();
+      }
+    } catch (err) {
+      logger.error(`insertReserv DB Connection error\n: ${JSON.stringify(err)}`);
+      return false;
+    }
+   
+  }
 
+}
+     
 
 
 const readUsers = async function(req,res){
@@ -230,7 +256,12 @@ const readUsers = async function(req,res){
         logger.error(`readusers DB Connection error\n: ${JSON.stringify(err)}`);
         return false;
       }
-};
+
+    
+      
+    
+  }
+
 
 const readJwt = async function(req,res){
   const { userIdx, userName } = req.verifiedToken;
@@ -239,7 +270,6 @@ const readJwt = async function(req,res){
     code: 200,
     message: "유효한 토큰입니다.",
   });
-
 }
 
 module.exports = {

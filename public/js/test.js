@@ -56,9 +56,11 @@ $(document).on('click','.nickname',function(){
 
 $(function() {
     $("#bu2").timepicker({
-        timeFormat: 'h:mm p',
+        timeFormat: 'H:mm',
         interval: 30,
         startTime: '00:00',
+        minTime: '10',
+        maxTime: '18:00',
         defaultTime: '11',
         dynamic: false,
         dropdown: true,

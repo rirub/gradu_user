@@ -73,3 +73,26 @@
 {"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 16:32:19"}
 {"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 16:35:32"}
 {"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 16:36:36"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:07:54"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:15:09"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:15:47"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:21:55"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:23:50"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:24:34"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:24:37"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:26:43"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:29:36"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:31:38"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:33:20"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 18:58:27"}
+{"level":"error","message":"insertReserv Query error\n: {\"message\":\"Incorrect time value: '12:30 AM' for column 'Time' at row 1\",\"code\":\"ER_TRUNCATED_WRONG_VALUE\",\"errno\":1292,\"sql\":\"insert into reservation(hosIdx, Date,Time,userIdx,userName, userNum, userBirth) values(4,'2022-11-01','12:30 AM','22','강은영','010-4983-6181','1999-07-28');\",\"sqlState\":\"22007\",\"sqlMessage\":\"Incorrect time value: '12:30 AM' for column 'Time' at row 1\"}","timestamp":"2022-10-10 18:59:11"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:19:29"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:23:40"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:31:50"}
+{"level":"error","message":"insertReserv Query error\n: {\"message\":\"Duplicate entry '4-2022-10-11-11:00:00' for key 'reservation.PRIMARY'\",\"code\":\"ER_DUP_ENTRY\",\"errno\":1062,\"sql\":\"insert into reservation(hosIdx, Date,Time,userIdx,userName, userNum, userBirth) values(4,'2022-10-11','11:00','1','공령휘','010-2345-3456','2000-08-05');\",\"sqlState\":\"23000\",\"sqlMessage\":\"Duplicate entry '4-2022-10-11-11:00:00' for key 'reservation.PRIMARY'\"}","timestamp":"2022-10-10 19:32:34"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:33:40"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:36:10"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:36:38"}
+{"level":"error","message":"insertReserv Query error\n: {\"message\":\"Duplicate entry '4-2022-10-11-11:00:00' for key 'reservation.PRIMARY'\",\"code\":\"ER_DUP_ENTRY\",\"errno\":1062,\"sql\":\"insert into reservation(hosIdx, Date,Time,userIdx,userName, userNum, userBirth) values(4,'2022-10-11','11:00','1','공령휘','010-1234-5678','2000-08-05');\",\"sqlState\":\"23000\",\"sqlMessage\":\"Duplicate entry '4-2022-10-11-11:00:00' for key 'reservation.PRIMARY'\"}","timestamp":"2022-10-10 19:37:13"}
+{"level":"info","message":"API server start at port 3000","timestamp":"2022-10-10 19:38:14"}
+{"level":"error","message":"insertReserv Query error\n: {\"message\":\"Duplicate entry '4-2022-10-11-11:00:00' for key 'reservation.PRIMARY'\",\"code\":\"ER_DUP_ENTRY\",\"errno\":1062,\"sql\":\"insert into reservation(hosIdx, Date,Time,userIdx,userName, userNum, userBirth) values(4,'2022-10-11','11:00','1','공령휘','010-4983-6191','2000-09-05');\",\"sqlState\":\"23000\",\"sqlMessage\":\"Duplicate entry '4-2022-10-11-11:00:00' for key 'reservation.PRIMARY'\"}","timestamp":"2022-10-10 19:38:47"}
