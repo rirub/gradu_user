@@ -150,8 +150,9 @@ function displayPlaces(places,lat,lon) {
                 var name = event.currentTarget.querySelector('.name');
                 var address = event.currentTarget.querySelector('#address');
                 console.log(name.innerHTML);
-                if(!checkHos(name.innerHTML)){
-                    //팝업창안뜨게...
+                
+                if(checkHos(name.innerHTML)!=200){
+                    return false;
             
                 }
                 console.log(address.innerHTML);
@@ -618,7 +619,7 @@ function checkHos(hosname){
         hosName : hosName
     }
 
-    fetch("/gethosIdx",{
+    const res2 = fetch("/gethosIdx",{
         method:"POST",
         headers: {
             "Content-Type": "application/json"
@@ -627,13 +628,16 @@ function checkHos(hosname){
     })
     .then((response) => response.json())
     .then((data) => {
-        if(data.code!=200){
-            alert("등록된 병원이 아닙니다. 예약이 불가합니다.");
-            return false;
-        }
-        hosIdx = data.result; 
-        console.log(hosIdx)
-        return true;
+        const res = data.code;
+        return res;
+        // if(data.code!=200){
+        //     alert("등록된 병원이 아닙니다. 예약이 불가합니다.");
+        //     return false;
+        // }
+        // hosIdx = data.result; 
+        // console.log(hosIdx)
+        // return true;
     });
-       
+    console.log(res2);
+  return res2;     
 }
