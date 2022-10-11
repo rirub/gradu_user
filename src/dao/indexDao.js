@@ -49,6 +49,16 @@ exports.insertReserv = async function (connection,hosIdx, Date,Time,userIdx,user
   return rows;
 };
 
+exports.selectUserRes = async function (connection, userIdx) {
+  //const Query = `select * from reservation WHERE userIdx = ?;`;
+  const Query = `select * from reservation inner join hospitals on reservation.hosIdx = hospitals.hosIdx where userIdx = ?
+  `
+  const Params = [userIdx];
+
+  const rows = await connection.query(Query, Params);
+
+  return rows;
+};
 
 
 

@@ -22,8 +22,11 @@ module.exports = function(app){
     app.post("/reservation",index.process.reservation);
     //예약
     //app.post("/reservation",index.process.reservation);
-
+    app.post("/getResInfo", index.getResInfo);
    
     //유저조회
     app.get("/users", index.readUsers);
+
+    
+    
    };

@@ -272,6 +272,33 @@ const readJwt = async function(req,res){
   });
 }
 
+const getResInfo = async function(req,res){
+  const {userIdx} = req.body;
+  try {
+    const connection = await pool.getConnection(async (conn) => conn);
+    try {
+      const [rows] = await indexDao.selectUserRes(connection,userIdx);
+    
+      return res.send(
+        {
+        result: rows,
+        isSuccess: true,
+        code: 200, // 요청 실패시 400번대 코드
+        message: "요청 성공",
+      }
+      );
+    } catch (err) {
+      logger.error(`selectUserRes Query error\n: ${JSON.stringify(err)}`);
+    } finally {
+      connection.release();
+    }
+  } catch (err) {
+    logger.error(`selectUserRes DB Connection error\n: ${JSON.stringify(err)}`);
+    return false;
+  }
+
+}
+
 module.exports = {
-    output, process, hospital, readUsers, readJwt, pharmacy, reservation,
+    output, process, hospital, readUsers, readJwt, pharmacy, reservation,getResInfo
 }

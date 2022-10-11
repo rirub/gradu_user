@@ -150,11 +150,6 @@ function displayPlaces(places,lat,lon) {
                 var name = event.currentTarget.querySelector('.name');
                 var address = event.currentTarget.querySelector('#address');
                 console.log(name.innerHTML);
-                
-                if(checkHos(name.innerHTML)!=200){
-                    return false;
-            
-                }
                 console.log(address.innerHTML);
                 var Hname = name.innerHTML;
                 var Haddress = address.innerHTML;
@@ -172,26 +167,40 @@ function displayPlaces(places,lat,lon) {
                 <p> 생년월일 : <input type="date" id="birth" style="margin-bottom:13px"> </p>
                 <div> <button id="reservation" style="background-color:black; color: white; border-radius: 5px; width: 100px; margin-top: 10px; margin-left: 76px"> 예약하기 </button></div>
                 `
-
-                // res값 올바른 경우 팝업창 출력
-                if(true)
-                {
-                    $("#popup").html(contents);
-                    $("#popup").bPopup({
-                        speed: 650,
-                        transition: "slideIn",
-                        transitionClose: "slideBack",
-                        position: [($(document).width()-300)/2,120]
-                    });
-                }
-
-                // res값 올바르지 않은 경우 예약불가 alert창 출력
-                else if(false)
-                {
-                    alert('해당 시간에 예약 불가한 병원입니다.');
-                    return false;
-                }
                 
+                // database 
+                var hosName = name.innerHTML;
+                const request = {
+                    hosName : hosName
+                }
+                fetch("/gethosIdx",{
+                    method:"POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body : JSON.stringify(request),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    // const res = data.code;
+                    // return res;
+                    if(data.code==410){
+                        alert("등록된 병원이 아닙니다. 예약이 불가합니다.");
+                        return false;
+                    }
+                    else{
+                        hosIdx = data.result; 
+                        console.log(hosIdx)
+                        $("#popup").html(contents);
+                        $("#popup").bPopup({
+                            speed: 650,
+                            transition: "slideIn",
+                            transitionClose: "slideBack",
+                            position: [($(document).width()-300)/2,120]
+                        });
+                    }
+                    
+                });
             };
             
         })(marker, places[i].place_name);
@@ -220,40 +229,6 @@ $(document).on('click','#reservation',function(){
     var userbirth = document.getElementById('birth');
     var date = localStorage.getItem('date');
     var time = localStorage.getItem('time');
- 
-    const req2 = { 
-        hosIdx : hosIdx, 
-        Date: date,
-        Time : time,
-        userIdx : userIdx,
-        userName : username.value,
-        userNum : usernum.value,
-        userBirth : userbirth.value
-    };
-        console.log(req2);
-    
-   fetch("/reservation",{
-    method : "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body : JSON.stringify(req2),
-   })
-   .then((response) => response.json())
-   .then((data) => {
-       if(data.code!=200){
-           alert("해당 시간에 예약이 불가능합니다. 다른 시간을 선택해주세요");
-           return false;
-        }
-        else{
-            alert('예약 완료');
-            return true;
-        }
-    //    const resIdx = data.result.resIdx;
-    //    console.log(resIdx);
-       
-    });
-
 
     let newContent = `
                 <h3 style="font-weight: bold; font-size:27px; margin-bottom: 5px; text-align:center; color:black"> 예약 완료 </h3>
@@ -266,12 +241,49 @@ $(document).on('click','#reservation',function(){
                 <div style=" font-size:15px; margin-bottom: 5px; text-align:center; color:black">
                 <p> 이름 : `+ username.value +
                 `<p> 번호 : `+ usernum.value +
-              checkHos  `<p> 날짜 : `+ date + 
+                `<p> 날짜 : `+ date + 
                 `<p> 시간 : `+ time +
                 `</div>
                 <div> <button id="end" style="background-color:black; color: white; border-radius: 5px; width: 100px; margin-top: 10px; margin-left: 76px"> 확인 </button></div>
                 `
-    $("#popup").html(newContent);
+
+    const req2 = { 
+        hosIdx : hosIdx, 
+        Date: date,
+        Time : time,
+        userIdx : userIdx,
+        userName : username.value,
+        userNum : usernum.value,
+        userBirth : userbirth.value
+    };
+        console.log(req2);
+    
+    fetch("/reservation",{
+    method : "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body : JSON.stringify(req2),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if(data.code!=200){
+            alert("해당 시간에 예약이 불가능합니다. 다른 시간을 선택해주세요");
+            location.replace('/hospital');
+            }
+            else{
+                alert('예약 완료');
+                $("#popup").html(newContent);
+                
+            }
+        //    const resIdx = data.result.resIdx;
+        //    console.log(resIdx);
+        
+    });
+
+
+    
+    
 });
 
 $(document).on('click','#end',function(){
@@ -289,8 +301,7 @@ $(window).on('beforeunload', function(){
     window.localStorage.removeItem('date');
     window.localStorage.removeItem('time');
     window.localStorage.removeItem('num');
-    // 새로고침 할때 변경사항이 저장 안될수있다는걸 alert창으로 하고 싶은데
-    // ㅅㅂ 안됨... 
+    
 })
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
@@ -524,7 +535,7 @@ function sorting(places,latitude,longitude){
                 };
 
                 // 예약 팝업창 뜨도록 하는 부분
-                    itemEl.onclick = function (event) {      
+                itemEl.onclick = function (event) {      
                     var c = localStorage.getItem('num');
                     
                     if(c!=2){
@@ -552,26 +563,40 @@ function sorting(places,latitude,longitude){
                     <p> 생년월일 : <input type="date" id="birth" style="margin-bottom:13px"> </p>
                     <div> <button id="reservation" style="background-color:black; color: white; border-radius: 5px; width: 100px; margin-top: 10px; margin-left: 76px"> 예약하기 </button></div>
                     `
-
-                    // res값 올바른 경우 팝업창 출력
-                    if(true)
-                    {
-                        $("#popup").html(contents);
-                        $("#popup").bPopup({
-                            speed: 650,
-                            transition: "slideIn",
-                            transitionClose: "slideBack",
-                            position: [($(document).width()-300)/2,120]
-                        });
-                    }
-
-                    // res값 올바르지 않은 경우 예약불가 alert창 출력
-                    else if(false)
-                    {
-                        alert('해당 시간에 예약 불가한 병원입니다.');
-                        return false;
-                    }
                     
+                    // database 
+                    var hosName = name.innerHTML;
+                    const request = {
+                        hosName : hosName
+                    }
+                    fetch("/gethosIdx",{
+                        method:"POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body : JSON.stringify(request),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // const res = data.code;
+                        // return res;
+                        if(data.code==410){
+                            alert("등록된 병원이 아닙니다. 예약이 불가합니다.");
+                            return false;
+                        }
+                        else{
+                            hosIdx = data.result; 
+                            console.log(hosIdx)
+                            $("#popup").html(contents);
+                            $("#popup").bPopup({
+                                speed: 650,
+                                transition: "slideIn",
+                                transitionClose: "slideBack",
+                                position: [($(document).width()-300)/2,120]
+                            });
+                        }
+                        
+                    });
                 };
                 
                 })(marker, places[i].place_name);
@@ -608,36 +633,3 @@ function signOut(event){
     location.replace("/login");
 }
 
-
-//예약 구현 - 여기서부터 령휘꺼에 추가! 
-
-function checkHos(hosname){
-   
-    var hosName = hosname;
-
-    const request = {
-        hosName : hosName
-    }
-
-    const res2 = fetch("/gethosIdx",{
-        method:"POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body : JSON.stringify(request),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        const res = data.code;
-        return res;
-        // if(data.code!=200){
-        //     alert("등록된 병원이 아닙니다. 예약이 불가합니다.");
-        //     return false;
-        // }
-        // hosIdx = data.result; 
-        // console.log(hosIdx)
-        // return true;
-    });
-    console.log(res2);
-  return res2;     
-}

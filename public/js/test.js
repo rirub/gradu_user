@@ -1,5 +1,31 @@
 "use strict";
 var c = 1;
+function getInfo(){
+    const userIdx = window.localStorage.getItem("userIdx");
+    const req = {userIdx: userIdx};
+    fetch("/getResInfo",{
+        method:"POST",
+        headers: {
+        "Content-Type": "application/json"
+    },
+    body : JSON.stringify(req),
+    }).then((response) => response.json())
+    .then((data) => {
+        // const res = data.code;
+        // return res;
+        if(data.code==410){
+            alert("예약 정보가 존재하지 않습니다.");
+            return false;
+        }
+        //console.log(data);
+        const resInfo = data.result;
+        for(var i=0;i<resInfo.length;i++){
+        console.log(resInfo[i].hosName, resInfo[i].Date,resInfo[i].Time );}
+        //resInfo[0].hosIdx;
+    });
+
+};
+
 
 function selectDay(event){
     var date = document.getElementById('date');
@@ -44,8 +70,9 @@ function select(){
 }
 
 $(document).on('click','.nickname',function(){
+    getInfo();    
     let content = `<div>예약 한 내용</div>`
-
+    
     $('#mypage').html(content);
     $("#mypage").bPopup({
         modalClose : true,

@@ -82,14 +82,24 @@ h2
     color: #777;
 }
 
-#skBtn :hover,
-#eyeBtn :hover,
-#noBtn :hover,
-#skinBtn :hover,
-#hbBtn :hover,
-#tBtn :hover,
-#nBtn :hover,
-#jhBtn :hover{
+#skBtn:hover,
+#eyeBtn:hover,
+#noBtn:hover,
+#skinBtn:hover,
+#hbBtn:hover,
+#tBtn:hover,
+#nBtn:hover,
+#jhBtn:hover{
     background-color: black;
     
 }
+.nickname{
+    background-color: rgb(33,37,41);
+    border: 0px;
+    color: white;
+}
+.nickname:hover{
+    font-size: 17px;
+    color: gray;
+}
+

@@ -1,13 +1,15 @@
-//let url = "http://127.0.0.1:3001";
+
 const jwt = localStorage.getItem("x-access-token");
 setHeader(jwt);
 
 
 const btnSignout=document.querySelector("#sign-out");
-
 btnSignout.addEventListener("click",signOut);
+
 async function setHeader(jwt){
     if(!jwt){
+        alert('로그인이 필요합니다.');
+        location.replace('/login');
         return false;
     }
     fetch("/jwt",{
@@ -29,14 +31,11 @@ async function setHeader(jwt){
     const userIdx = data.result.userIdx;
     window.localStorage.setItem('userIdx', userIdx);
     const userName = data.result.userName;
-    const divUnsigned = document.querySelector(".unsigned");
-    const divSigned = document.querySelector(".signed");
-    const spanNickname = document.querySelector(".nickname");
+    
 
-//    const userData = {
-//         userIdx : userIdx,
-//         userName: userName
-//    }
+    // 닉네임 들어가는 부분에 유저 이름 넣기 
+    const spanNickname = document.querySelector(".nickname");
+    spanNickname.innerHTML = userName;
 
     return true;
 
@@ -47,8 +46,6 @@ async function setHeader(jwt){
 }
 
 function signOut(){
-     localStorage.removeItem("x-access-token");
-     location.reload(); //새로고침
+    localStorage.removeItem("x-access-token");
+    location.replace('/login');
     }
-
-    // export {userData};
