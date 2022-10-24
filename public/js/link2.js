@@ -13,43 +13,43 @@ const tBtn = document.querySelector("#tBtn");
 
 eyeBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'안과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 hbBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'흉부외과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 skBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'신경외과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 
 jhBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'정형외과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 nBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'내과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 noBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'이비인후과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 
 skinBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'피부과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 
 tBtn.addEventListener("click", function(){
     window.localStorage.setItem("keyword",'치과');
-    return location.replace("/hospital");
+    return location.replace("/getmap");
 });
 

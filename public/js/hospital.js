@@ -269,7 +269,7 @@ $(document).on('click','#reservation',function(){
     .then((data) => {
         if(data.code!=200){
             alert("해당 시간에 예약이 불가능합니다. 다른 시간을 선택해주세요");
-            location.replace('/hospital');
+            location.replace('/getmap');
             }
             else{
                 alert('예약 완료');

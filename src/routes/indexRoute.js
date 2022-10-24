@@ -8,7 +8,7 @@ module.exports = function(app){
     app.get("/login",index.output.login);
     app.get("/main",index.output.main);
     app.get("/pharmacy", index.pharmacy);
-    app.get("/hospital", index.hospital);
+    app.get("/getmap", index.hospital);
     app.get("/reservation", index.reservation);
      //로그인 유지, 토큰 검증
     app.get("/jwt", jwtMiddleware, index.readJwt);
